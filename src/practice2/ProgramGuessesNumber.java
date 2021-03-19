@@ -15,12 +15,29 @@ public class ProgramGuessesNumber {
         Scanner in = new Scanner(System.in);
         int guess = (start + finish) / 2;
 
-        while (guess != equality) {
+        while (equality != 1) {
             System.out.println("число равно " + guess + "?");
             equality = in.nextInt();
             if (equality == 1) {
+                System.out.println("БИНГО!");
                 break;
             }
+            else {
+                System.out.println("число больше " + guess + "?");
+                reply = in.nextInt();
+                if (reply == 1) {
+                    start = guess;
+                }
+                else if (reply == 0) {
+                    finish = guess;
+                }
+                else {
+                    System.out.println("неверное значение ответа");
+                    break;
+                }
+            }
+
+            guess = (start + finish) / 2;
         }
 
 
