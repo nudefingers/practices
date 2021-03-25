@@ -2,7 +2,7 @@ package practice3;
 
 import java.util.Arrays;
 
-public class ArrayPractice {
+public class ArraysPractice {
 
     public static void main(String[] args) {
 
@@ -79,11 +79,10 @@ public class ArrayPractice {
 
 
 //        4. Создать массив из чётных чисел [2, 4, 6, 8, 10, 12 ... 18, 20] и вывести элементы массива в консоль в обратном порядке (20 18 16 ... 4 2)
-        int length = 0;
-        for (int i = 2; i <= 20 ; i++) {
+        int length = 20 / 2;
+        /*for (int i = 2; i <= 20 ; i++) {
             if (i % 2 == 0) length++;
-        }
-
+        }*/
         int[] arr4 = new int[length];
 
         int n = 2;
