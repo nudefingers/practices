@@ -1,4 +1,4 @@
-package com.ifmo.jjd.lesson7.utils;
+package com.ifmo.jjd.practice7.farm.utils;
 
 public class Randoms {
     public static int getRandomInt(int min, int max) {

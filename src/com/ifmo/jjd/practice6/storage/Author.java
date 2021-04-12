@@ -1,4 +1,4 @@
-package com.ifmo.jjd.practice6.library;
+package com.ifmo.jjd.practice6.storage;
 
 public class Author {
     private String name;
@@ -34,7 +34,8 @@ public class Author {
 
     @Override
     public String toString() {
-        return name + " " + surname;
+        StringBuilder sb = new StringBuilder();
+        return sb.append(name).append(" ").append(surname).toString();
     }
 }
 

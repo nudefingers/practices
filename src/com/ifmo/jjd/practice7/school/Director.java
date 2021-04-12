@@ -1,4 +1,4 @@
-package com.ifmo.jjd.practice7;
+package com.ifmo.jjd.practice7.school;
 
 import java.util.Objects;
 
@@ -13,10 +13,11 @@ public class Director extends Human {
     }
 
     public void startClasses() {
-        System.out.println("--начало занятий--");
+        System.out.println("--начало занятий-- (" + toString() + ")");
     }
 
     public void finishClasses() {
-        System.out.println("--окончание занятий--");
+        System.out.println("--окончание занятий-- (" + toString() + ")");
     }
+
 }

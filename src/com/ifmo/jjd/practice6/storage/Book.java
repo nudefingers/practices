@@ -1,4 +1,4 @@
-package com.ifmo.jjd.practice6.library;
+package com.ifmo.jjd.practice6.storage;
 
 import java.util.Arrays;
 import java.util.Objects;

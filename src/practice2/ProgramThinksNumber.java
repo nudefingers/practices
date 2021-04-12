@@ -16,12 +16,13 @@ public class ProgramThinksNumber {
         int number = 5, guess = 0;
         System.out.println("Введите свое предположение:");
 
+        Scanner in = new Scanner(System.in);
+
         if (number < 1 && number > 9) {
             System.out.println("Программа, придумай другое число");
         }
         else {
             while (number != guess) {
-                Scanner in = new Scanner(System.in);
                 guess = in.nextInt();
 
                 if (guess ==0) {

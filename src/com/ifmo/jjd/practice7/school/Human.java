@@ -1,4 +1,4 @@
-package com.ifmo.jjd.practice7;
+package com.ifmo.jjd.practice7.school;
 
 abstract public class Human {
     protected String name;
@@ -6,7 +6,7 @@ abstract public class Human {
 
     @Override
     public String toString() {
-        return "Human {" +
+        return getClass().getSimpleName() + " {" +
                 "name='" + name + '\'' +
                 '}';
     }

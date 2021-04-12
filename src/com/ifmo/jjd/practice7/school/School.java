@@ -1,4 +1,4 @@
-package com.ifmo.jjd.practice7;
+package com.ifmo.jjd.practice7.school;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -69,6 +69,18 @@ public class School {
 
     }
 
-    public void dayAtSchool() {}
+    public void dayAtSchool() {
+        director.startClasses();
+
+        for (Student student : students) {
+            for (Teacher teacher : teachers) {
+                if (teacher != null && student != null) {
+                    if (student.subject == teacher.subject) teacher.toTeach(student);
+                }
+            }
+        }
+
+        director.finishClasses();
+    }
 
 }

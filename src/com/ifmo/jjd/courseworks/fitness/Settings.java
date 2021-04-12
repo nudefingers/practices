@@ -1,9 +1,11 @@
-package com.ifmo.jjd.practice7.farm;
+package com.ifmo.jjd.courseworks.fitness;
 
 public class Settings {
-    public static final int FARMER_RESOURSE = 5;
-    public static final int PETS_COUNT = 10;
-    public static final int WILD_COUNT = 3;
+    /*public static final int POOL_COUNT = 5;
+    public static final int GYM_COUNT = 5;
+    public static final int GROUP_COUNT = 5;*/
 
-    public static final int MAX_PET_HELTH = 100;
+    public static final int POOL_COUNT = 20;
+    public static final int GYM_COUNT = 20;
+    public static final int GROUP_COUNT = 20;
 }

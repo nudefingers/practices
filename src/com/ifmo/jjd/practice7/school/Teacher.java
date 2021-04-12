@@ -1,9 +1,9 @@
-package com.ifmo.jjd.practice7;
+package com.ifmo.jjd.practice7.school;
 
 import java.util.Objects;
 
-public class Teacher extends Human {
-    private String subject;
+public class Teacher extends Human implements ForTeach {
+    public String subject;
 
     public Teacher(String name, int age, String subject) {
         Objects.requireNonNull(name, "Имя не может быть null");
@@ -16,12 +16,13 @@ public class Teacher extends Human {
         this.age = age;
     }
 
-    public void toTeach(int knowledgeCount, Student student) {
+    public void toTeach(Student student) {
         Objects.requireNonNull(student, "Ученик не можеть быть null");
         if (!subject.equals(student.subject)) {
             System.out.println("У учителя и ученика разные предметы");
             return;
         }
-        student.toStudy(knowledgeCount);
+        student.toStudy(5);
+        System.out.println(toString() + " обучил " + student.toString() + " дисциплине " + subject);
     }
 }

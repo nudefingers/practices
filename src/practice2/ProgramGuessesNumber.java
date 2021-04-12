@@ -37,7 +37,7 @@ public class ProgramGuessesNumber {
                 }
             }
 
-            guess = (start + finish) / 2;
+            guess = (start + finish) / 2; //test
         }
 
 

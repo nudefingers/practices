@@ -1,4 +1,4 @@
-package com.ifmo.jjd.practice6.library;
+package com.ifmo.jjd.practice6.storage;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -35,10 +35,10 @@ public class Storage {
     @Override
     public String toString() {
         int free = books.length;
-        String booksInLine = new String();
+        StringBuilder booksInLine = new StringBuilder();
         for (Book book : books) {
             if (book != null) {
-                booksInLine += book.toString() + "\n";
+                booksInLine.append(book.toString()).append("\n");
                 free --;
             }
         }

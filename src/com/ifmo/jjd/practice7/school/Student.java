@@ -1,8 +1,8 @@
-package com.ifmo.jjd.practice7;
+package com.ifmo.jjd.practice7.school;
 
 import java.util.Objects;
 
-public class Student extends Human {
+public class Student extends Human implements ForStudy {
     public String subject;
     private int knowledgeLevel;
 
