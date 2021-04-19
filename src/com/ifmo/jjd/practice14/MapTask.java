@@ -80,6 +80,9 @@ public class MapTask {
         // 3.
         System.out.println(mostCommonWords(text));
 
+        // 4.
+        alphabet(text);
+
     }
 
 
@@ -188,6 +191,34 @@ public class MapTask {
         }
 
         return Arrays.toString(arrResult);
+    }
+
+    // 4.
+    public static void alphabet (String text) {
+
+        char[] chars = text.replaceAll("\\s+","").toLowerCase().replaceAll("[-+.^:,]","").toCharArray();
+
+        HashMap<Character, Double> alphabet = new HashMap<>();
+
+        for(int i = 0; i < 26; i++){
+            char letter = (char)(97 + i);
+            alphabet.put(letter, 0.0);
+        }
+
+        for (char ch : chars) {
+            alphabet.put(ch, alphabet.get(ch) + 1);
+        }
+
+        for (Map.Entry entry : alphabet.entrySet()) {
+            alphabet.put((char)entry.getKey(), (Double)entry.getValue() * 100 / chars.length);
+        }
+
+        /*for (Character character : alphabet.keySet()) {
+
+        }*/
+
+        System.out.println(alphabet);
+        System.out.println(chars.length);
     }
 }
 
