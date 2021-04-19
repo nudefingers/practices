@@ -43,13 +43,20 @@ public class MessageTask {
         }
         System.out.println(countCode);
 
+        //с использованием Map
+        HashMap<Integer, Integer> codeCount = new HashMap<>();
+        for (Message msg: messageList) {
+            //Integer newCount = codeCount.getOrDefault(msg.getCode(), codeCount.put(msg.getCode(), 0));
+            //codeCount.put(newCount, codeCount.get(newCount) + 1);
+            codeCount.put(msg.getCode(), codeCount.getOrDefault(msg.getCode(), 0) + 1);
+        }
+
     }
 
     public static void uniqueMessageCount(List<Message> messageList) {
         // TODO: Подсчитать количество уникальных сообщений
         //  Ответ в консоль
-        HashSet<Message> uniqueMsg = new HashSet<>();
-        uniqueMsg.addAll(messageList);
+        HashSet<Message> uniqueMsg = new HashSet<>(messageList);
 
         System.out.println(uniqueMsg.size());
 
@@ -66,7 +73,7 @@ public class MessageTask {
                 uniqueMsg.add(message);
             }
         }
-        return uniqueMsg;
+        return uniqueMsg; //в задании имелось ввиду, что надо использовать LinkedHashSet
     }
 
     public static List<Message> copyEach(List<Message> messageList, Message.MessagePriority priority) {
