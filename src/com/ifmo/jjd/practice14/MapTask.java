@@ -218,7 +218,6 @@ public class MapTask {
         }*/
 
         System.out.println(alphabet);
-        System.out.println(chars.length);
     }
 }
 
