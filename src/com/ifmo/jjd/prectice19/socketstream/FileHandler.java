@@ -1,6 +1,5 @@
-package lesson18.handlers;
+package com.ifmo.jjd.prectice19.socketstream;
 
-import javax.imageio.IIOException;
 import java.io.File;
 import java.io.IOException;
 

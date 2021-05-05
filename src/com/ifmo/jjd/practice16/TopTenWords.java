@@ -2,6 +2,7 @@ package com.ifmo.jjd.practice16;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -21,17 +22,19 @@ public class TopTenWords {
                 "uncover many web sites still uncover in their infancy Various versions uncover have evolved over the years uncover sometimes by accident" +
                 " sometimes on purpose injected humour and the like";
 
-        String[] words = text.split(" ");
+        String[] words = text.toLowerCase().split(" ");
         Map<String, Long> result = Arrays.stream(words)
                 .collect(Collectors.groupingBy(Function.identity(),
-                        Collectors.counting()));
-
-        result.entrySet()
+                        Collectors.counting()))
+                .entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue()
                         .reversed())
                 .limit(10)
-                .forEach(System.out::println);
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        Map.Entry::getValue));
+
+        System.out.println(result);
 
     }
 }

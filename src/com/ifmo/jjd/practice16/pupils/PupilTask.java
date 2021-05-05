@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class PupilTask {
     public static void main(String[] args) {
 
-        List<Pupil> pupils = Pupil.getInstances(10);
+        List<Pupil> pupils = Pupil.getInstances(20);
         System.out.println(pupils.toString());
         // Используя Stream API:
 
@@ -26,10 +26,10 @@ public class PupilTask {
 
         // 2. Найти средний возраст учеников
         Double averageAge = pupils.stream()
-                .map(pupil -> ChronoUnit.DAYS.between(pupil.getBirth(), LocalDate.now().atStartOfDay()))
-                .mapToDouble(a -> a)    //Function.identity() ???
-                .average()
-                .orElse(0);
+                .mapToDouble(pupil -> ChronoUnit.DAYS.between(pupil.getBirth(), LocalDate.now().atStartOfDay()))    //Function.identity() ???
+                .average() // среднее значение
+                .orElse(0); // вынимаем из Optional conteiner
+
         System.out.println("\n" + "Средний возраст учеников:");
         System.out.println(averageAge + " дней");
 
@@ -59,7 +59,7 @@ public class PupilTask {
 
 
         // 6. Оставить учеников с неповторяющимися именами, имена и дату рождения оставшихся вывести в консоль.
-        // Например, [Иван, Александра, Ольга, Иван, Ольга] -> [Иван, Александра, Ольга] ??????
+        // Например, [Иван, Александра, Ольга, Иван, Ольга] -> [Иван, Александра, Ольга]
         Map<String, ArrayList<Pupil>> homonym = pupils.stream()
                 .collect(Collectors.groupingBy(Pupil::getName,
                         Collectors.toCollection(ArrayList::new)));
@@ -71,7 +71,7 @@ public class PupilTask {
         List<Pupil> byFemaleByDateByName = pupils.stream()
                 .sorted(Comparator.comparing(Pupil::getGender)
                         .thenComparing(Pupil::getBirth)
-                        .thenComparing(Pupil::getName))
+                        .thenComparing(Pupil::getName).reversed())
                 .collect(Collectors.toList());
         System.out.println("\n" + "Сортировка:");
         System.out.println(byFemaleByDateByName);
@@ -90,7 +90,7 @@ public class PupilTask {
         // 9. Собрать в список всех учеников с именем=someName
         String someName = "Никки";
         List<Pupil> bySomeName = pupils.stream()
-                .filter(pup -> pup.getName() == someName)
+                .filter(pup -> pup.getName().equals(someName))
                 .collect(Collectors.toList());
         System.out.println("\n" + "Имя == " + someName + ":");
         System.out.println(bySomeName);

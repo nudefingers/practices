@@ -1,14 +1,19 @@
-package lesson18.handlers;
+package com.ifmo.jjd.prectice19.socketstream;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 public class ImgHandler extends FileHandler{
     public ImgHandler(File file) {
         setFile(file);
     }
+
+    public ImgHandler() {}
 
     public void setFile(File file) {
         this.file = file;
