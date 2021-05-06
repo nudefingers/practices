@@ -1,4 +1,4 @@
-package com.ifmo.jjd.pracrice21;
+package com.ifmo.jjd.practice21;
 
 import com.ifmo.jjd.practice13.employee.utils.Randoms;
 

@@ -1,4 +1,4 @@
-package com.ifmo.jjd.pracrice21;
+package com.ifmo.jjd.practice21;
 
 public class Green implements Alarm{
     public Green() {}
