@@ -1,4 +1,4 @@
-package com.ifmo.jjd.prectice19.socketstream;
+package com.ifmo.jjd.practice19.socketstream;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.ifmo.jjd.prectice19.socketstream;
+package com.ifmo.jjd.practice19.socketstream;
 
 public class ClientApplication {
     public static void main(String[] args) {

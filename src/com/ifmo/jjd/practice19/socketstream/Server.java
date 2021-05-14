@@ -1,6 +1,5 @@
-package com.ifmo.jjd.prectice19.socketstream;
+package com.ifmo.jjd.practice19.socketstream;
 
-import javax.crypto.spec.PSource;
 import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;

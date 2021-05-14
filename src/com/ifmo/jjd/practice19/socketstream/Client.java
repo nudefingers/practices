@@ -1,10 +1,9 @@
-package com.ifmo.jjd.prectice19.socketstream;
+package com.ifmo.jjd.practice19.socketstream;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Scanner;

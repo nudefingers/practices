@@ -1,4 +1,4 @@
-package com.ifmo.jjd.prectice19.socketstream;
+package com.ifmo.jjd.practice19.socketstream;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
