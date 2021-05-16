@@ -135,9 +135,10 @@ public class ReflectionLesson {
 
         for (Field field : fields) {
 
-            System.out.println("*** " + field.getName());
-
             Class<? extends Field> fClass = field.getClass();
+            // TODO: ошибка тут!!!
+            System.out.println("+" + fClass.getClass() );
+
             Field[] fieldFields = fClass.getFields();
             if (fieldFields.length == 0) {
                 Method method = Arrays.stream(methods)
@@ -151,8 +152,15 @@ public class ReflectionLesson {
             }
             else {
                 System.out.println(2);
+
+                for (Field ff : fieldFields) {
+                    System.out.println(ff.getName());
+                    System.out.println(ff.getClass());
+                    System.out.println("-");
+                }
+
                 toToString = toToString + "[\n";
-                recToString(o, toToString, fieldFields, methods);
+                //recToString(o, toToString, fieldFields, methods);
                 toToString = toToString + "]\n";
             }
         }

@@ -1,21 +1,45 @@
 package com.ifmo.jjd.courseworks.game;
 
+import com.ifmo.jjd.courseworks.game.menu.Menu;
+
+import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
-public class Section {
-    String title;
-    String text;
-    String firstWay;
-    String secondWay;
+public class Section implements Serializable {
+    private String title;
+    private String text;
+    private HashMap<Integer, String> ways = new HashMap<>();
 
-    public Section(String title, String text, String firstWay, String secondWay) {
+    private Section(String title, String text, String firstWay, String secondWay) {
         this.title = title;
         this.text = text;
-        this.firstWay = firstWay;
-        this.secondWay = secondWay;
+        addWays(firstWay, secondWay);
     }
 
-    public Section createStart() {
+    private void setWays(HashMap<Integer, String> ways) {
+        this.ways = ways;
+    }
+
+    private void addWays(String firstWay, String secondWay){
+        ways.put(1, firstWay);
+        ways.put(2, secondWay);
+    }
+
+    private void displaySection(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.title).append("\n").append(this.text).append("\n");
+
+        for (HashMap.Entry<Integer, String> way : this.ways.entrySet()) {
+            sb.append(way.getKey()).append(". ").append( modifyWay(way.getValue(),false)).append("\n");
+        }
+
+        System.out.println(sb);
+    }
+
+    public static Section createStart() {
         String title = "Лисенок";
         String text = """
                         Каждое утро Лисёнок просыпался, завтракал и шёл увидеться с Бельчонком. Это утро не было исключением. Лисёнок пришёл на
@@ -27,19 +51,68 @@ public class Section {
         return new Section(title, text, firstWay, secondWay);
     }
 
-    public HashMap<String, Section> createSections() {
+    public static Section createBrokenSection() {
+        String title = "Скорее отнести мёд Медвежонку";
+        String text = """
+                Довольный Медвежонок рассказал Лисёнку, что очень хорошо знает семью Белок и уверен, что Бельчонок никогда не пошёл бы в
+                глубь леса. Он заверял Лисёнка, что Белки не попадают в неприятности, и что Совам нельзя верить, он также уговаривал
+                Лисёнка вернуться домой.
+                """;
+        String firstWay = "Медвежонок ничего не знает, нужно продолжить поиски -> Искать Бельчонка в одиночку";
+        String secondWay = "Может быть он прав и Лисёнок просто паникует -> Вернуться домой";
+
+        return new Section(title, text, firstWay, secondWay);
+    }
+
+    public static void runGame(Section current) {
+
+        HashMap<String, Section> sections = createSections();
+        Scanner scanner = new Scanner(System.in);
+        Section section = current;
+
+        while (true) { //todo условие выхода переписать - выигрыш или проигрыш
+            current.displaySection();
+            int wayNumber = userChoice(scanner);
+            if (wayNumber == 0) {
+                Menu.getInstance().setSection(current);
+                Menu.getInstance().runCommand();
+                break;
+            }
+
+            current = receiveNextSection(current,sections, wayNumber);
+
+            if (current.ways.get(1) == current.ways.get(2)) {
+                System.out.println(current.title);
+                System.out.println(current.text);
+                System.out.println(current.ways.get(1));
+                break;
+            }
+        }
+    }
+
+    private static HashMap<String, Section> createSections() {
         HashMap<String, Section> sections = new HashMap<>();
 
-        sections.put(createStart().title, createStart());
+        String win = "Игра завершилась успехом";
+        String loss = "Игра завершилась неудачей";
 
-        String title = "Вернуться домой";
+        String title = "Лисенок";
         String text = """
+                        Каждое утро Лисёнок просыпался, завтракал и шёл увидеться с Бельчонком. Это утро не было исключением. Лисёнок пришёл на
+                        их обычное место встречи, но Бельчонка там не было. Лисёнок ждал, ждал, но так и не смог дождаться своего друга. "
+                        Бельчонок не пропустил еще ни одной встречи, вдруг он попал в беду." - подумал Лисёнок. Как поступить Лисенку?
+                        """;
+        String firstWay = "Вернуться домой";
+        String secondWay = "Отправиться на поиски";
+
+        title = "Вернуться домой";
+        text = """
                         Вернувшись домой, Лисёнок нашёл там Бельчонка. Оказалось, что Бельчонок пришёл на место встречи раньше и увидел там рой
                         злобных пчел. Он поспешил предупредить об этом Лисёнка, но они разминулись. Наконец-то друзья нашли друг друга! <b>Игра
                         завершилась успехом</b>
                         """;
-        String firstWay = "<b>Игра завершилась успехом</b>";
-        String secondWay = "<b>Игра завершилась успехом</b>";
+        firstWay = win;
+        secondWay = win;
         sections.put(title, new Section(title, text, firstWay, secondWay));
 
         title = "Отправиться на поиски";
@@ -63,10 +136,9 @@ public class Section {
         title = "Искать Бельчонка в одиночку";
         text = """
                 Лисёнок слишком долго плутал по лесу в поисках друга и сам не заметил, как заблудился. Теперь его самого нужно искать.
-                <b>Игра завершилась неудачей</b>
                 """;
-        firstWay = "<b>Игра завершилась неудачей</b>";
-        secondWay = "<b>Игра завершилась неудачей</b>";
+        firstWay = loss;
+        secondWay = loss;
         sections.put(title, new Section(title, text, firstWay, secondWay));
 
         title = "Расспросить Сову";
@@ -116,19 +188,18 @@ public class Section {
 
         title = "Нужно попытаться выкрасть мёд немедленно";
         text = """
-                Это была не лучшая идея. Пчёлы покусали Лисёнка, теперь ему самому нужна помощь. <b>Игра завершилась неудачей</b>
+                Это была не лучшая идея. Пчёлы покусали Лисёнка, теперь ему самому нужна помощь.
                 """;
-        firstWay = "<b>Игра завершилась неудачей</b>";
-        secondWay = "<b>Игра завершилась неудачей</b>";
+        firstWay = loss;
+        secondWay = loss;
         sections.put(title, new Section(title, text, firstWay, secondWay));
 
         title = "Поесть немного и передохнуть";
         text = """
-                Пока Лисёнок ел, злобные пчёлы вернулись и покусали его. Лисёнку нужна помощь, он не сможет продолжить поиски. <b>Игра
-                завершилась неудачей</b>
+                Пока Лисёнок ел, злобные пчёлы вернулись и покусали его. Лисёнку нужна помощь, он не сможет продолжить поиски.
                 """;
-        firstWay = "<b>Игра завершилась неудачей</b>";
-        secondWay = "<b>Игра завершилась неудачей</b>";
+        firstWay = loss;
+        secondWay = loss;
         sections.put(title, new Section(title, text, firstWay, secondWay));
 
         title = "Скорее отнести мёд Медвежонку";
@@ -145,4 +216,45 @@ public class Section {
         return sections;
     }
 
+    private static int userChoice(Scanner scanner){
+        while (true) {
+            try {
+                System.out.println("Что делать Лисёнку? \nДля выхода в меню введите 0");
+                int userInt = scanner.nextInt();
+                if (userInt == 1 || userInt == 2) {
+                    return userInt;
+                }
+                if (userInt == 0) {
+                    //todo что писать в return ???
+                    return 0;
+                }
+                else {
+                    System.out.println("Необходимо выбрать: 1,2 или 0 для выхода в меню\n");
+                    continue;
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Необходимо выбрать: 1,2 или 0 для выхода в меню\n");
+                int userInt = scanner.nextInt();
+                //todo исправить эту фигнистику
+            }
+        }
+    }
+
+    private static String modifyWay(String way, boolean isKey) {
+        if (!way.contains(" -> ")) return way;
+
+        String[] parts = way.split(" -> ");
+        if (isKey) return parts[1].trim();
+        else return parts[0].trim();
+    }
+
+    private static Section receiveNextSection(Section current, HashMap<String, Section> sections, int wayNumber) {
+        return sections.entrySet()
+                .stream()
+                .filter(s -> s.getKey() == modifyWay(current.ways.get(wayNumber), true))
+                .map(enry ->  enry.getValue())
+                .findFirst()
+                .orElse(current);
+    }
 }

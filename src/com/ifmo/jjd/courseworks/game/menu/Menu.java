@@ -1,39 +1,67 @@
 package com.ifmo.jjd.courseworks.game.menu;
 
+import com.ifmo.jjd.courseworks.game.Section;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Menu {
-    HashMap<Integer, Command> commands = new HashMap<>();
+    private static Menu instance;
+    private HashMap<Integer, Command> commands = new HashMap<>();
+    private Section section;
+    private boolean itemSave = false;
 
-    public void setCommands() {
+    private Menu() {
+        setCommands();
+        section = Section.createStart();
+    }
+
+    public static Menu getInstance() {
+        if (instance == null) {
+            instance = new Menu();
+        }
+        return instance;
+    }
+
+    public void setSection(Section section) {
+        this.section = section;
+    }
+
+    public Section getSection() {
+        return section;
+    }
+
+    private void setCommands() {
         commands.put(1, new Start());
         commands.put(2, new Load());
-        commands.put(3, new LogOut());
+        commands.put(3, new Exit());
         commands.put(4, new Save());
     }
     
-    public void runCommand(int item) {
-        commands.get(item).execute();
+    public void runCommand() {
+        commands.get(selectMenuItem()).execute();
     }
 
-    public static int selectMenuItem (boolean itemSave) {
+    private int selectMenuItem() {
         int itemCount = 3;
-        String textMenu = "1. Начать игру\n" +
-                "2. Загрузить игру\n" +
-                "3. Выйти";
+        String textMenu = """
+                    1. Начать игру
+                    2. Загрузить игру
+                    3. Выйти
+                    """;
         if (itemSave) {
-            textMenu += "\n4. Сохранить игру";
+            textMenu += "4. Сохранить игру";
             itemCount ++;
         }
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Выберите пунк меню:");
+            System.out.println("Выберите пункт меню:");
             System.out.println(textMenu);
 
             int userInt = scanner.nextInt();
             if (userInt <= itemCount && userInt > 0) {
+                itemSave = true;
                 return userInt;
             }
             else {
@@ -42,4 +70,5 @@ public class Menu {
             }
         }
     }
+
 }

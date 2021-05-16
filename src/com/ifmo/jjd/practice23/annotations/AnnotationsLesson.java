@@ -65,6 +65,9 @@ public class AnnotationsLesson {
         // установить значение (из properties файла) данного поля,
         // используя сеттер
         if (pointClass.isAnnotationPresent(Component.class)) {
+            Component component = pointClass.getDeclaredAnnotation(Component.class);
+            String fileName = component.fileName();
+
             Constructor<Point> pointConstructor = pointClass.getDeclaredConstructor();
             Point reflectPoint = pointConstructor.newInstance();
 
@@ -78,7 +81,6 @@ public class AnnotationsLesson {
                             .findFirst()
                             .get();
 
-                    //method.invoke(reflectPoint, field.getType().cast("99")); // не сделалалалалалалала
                     method.invoke(reflectPoint, Integer.parseInt(properties.get(field.getName()).toString()));
                 }
             }
