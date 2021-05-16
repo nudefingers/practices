@@ -1,22 +1,26 @@
 package com.ifmo.jjd.courseworks.game.menu;
 
-import com.ifmo.jjd.courseworks.game.BinHandler;
-import com.ifmo.jjd.courseworks.game.Section;
-import com.ifmo.jjd.practice23.annotations.AnnotationsLesson;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class Save implements Command{
     @Override
     public void execute() {
-        BinHandler binHandler = new BinHandler(new File(Menu.class
-                .getClassLoader().getResource("section.bin").getPath()));
-        binHandler.writeToFile(Menu.getInstance().getSection());
 
-        Section section = binHandler.readFromFile();
+        // todo почему не получается сохранить файл в ресурсах???
+        //String fileName = Menu.class.getClassLoader().getResource("Section.bin").getPath();
+        String fileName = "Section.bin";
+        try (FileOutputStream output = new FileOutputStream(fileName)) {
+            byte[] byteSection = Menu.getInstance().getSectionKey().getBytes("UTF-8");
+            output.write(byteSection);
+            System.out.println("Игра сохранена.\n");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        //Menu.getInstance().runCommand();
+        Menu.getInstance().runCommand();
     }
 }

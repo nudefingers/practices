@@ -19,6 +19,10 @@ public class Section implements Serializable {
         addWays(firstWay, secondWay);
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     private void setWays(HashMap<Integer, String> ways) {
         this.ways = ways;
     }
@@ -253,8 +257,18 @@ public class Section implements Serializable {
         return sections.entrySet()
                 .stream()
                 .filter(s -> s.getKey() == modifyWay(current.ways.get(wayNumber), true))
-                .map(enry ->  enry.getValue())
+                .map(e ->  e.getValue())
                 .findFirst()
                 .orElse(current);
+    }
+
+    public static Section getSectionByKey(String key) {
+        return createSections()
+                .entrySet()
+                .stream()
+                .filter(s -> s.getKey() == key)
+                .map(e -> e.getValue())
+                .findFirst()
+                .orElse(createStart());
     }
 }

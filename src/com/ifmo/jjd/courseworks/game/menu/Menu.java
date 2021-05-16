@@ -27,8 +27,8 @@ public class Menu {
         this.section = section;
     }
 
-    public Section getSection() {
-        return section;
+    public String getSectionKey() {
+        return section.getTitle();
     }
 
     private void setCommands() {
