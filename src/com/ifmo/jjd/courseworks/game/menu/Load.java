@@ -10,15 +10,14 @@ import java.nio.file.Paths;
 public class Load implements Command{
     @Override
     public void execute() {
-        String fileName = "Section.bin";
+        String fileName = "resources/Section.bin";
 
         try {
             String key = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8)
                     .findFirst()
                     .orElse("");
-            System.out.println(key);
+
             Section.runGame(Section.getSectionByKey(key));
-            //Section.runGame(Section.createBrokenSection()); // todo посмотреть загрузку дурацкой секции
         } catch (IOException e) {
             e.printStackTrace();
         }

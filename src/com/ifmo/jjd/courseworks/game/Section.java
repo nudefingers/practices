@@ -3,10 +3,7 @@ package com.ifmo.jjd.courseworks.game;
 import com.ifmo.jjd.courseworks.game.menu.Menu;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Section implements Serializable {
     private String title;
@@ -55,26 +52,13 @@ public class Section implements Serializable {
         return new Section(title, text, firstWay, secondWay);
     }
 
-    public static Section createBrokenSection() {
-        String title = "Скорее отнести мёд Медвежонку";
-        String text = """
-                Довольный Медвежонок рассказал Лисёнку, что очень хорошо знает семью Белок и уверен, что Бельчонок никогда не пошёл бы в
-                глубь леса. Он заверял Лисёнка, что Белки не попадают в неприятности, и что Совам нельзя верить, он также уговаривал
-                Лисёнка вернуться домой.
-                """;
-        String firstWay = "Медвежонок ничего не знает, нужно продолжить поиски -> Искать Бельчонка в одиночку";
-        String secondWay = "Может быть он прав и Лисёнок просто паникует -> Вернуться домой";
-
-        return new Section(title, text, firstWay, secondWay);
-    }
-
     public static void runGame(Section current) {
 
         HashMap<String, Section> sections = createSections();
         Scanner scanner = new Scanner(System.in);
         Section section = current;
 
-        while (true) { //todo условие выхода переписать - выигрыш или проигрыш
+        while (true) {
             current.displaySection();
             int wayNumber = userChoice(scanner);
             if (wayNumber == 0) {
@@ -229,7 +213,6 @@ public class Section implements Serializable {
                     return userInt;
                 }
                 if (userInt == 0) {
-                    //todo что писать в return ???
                     return 0;
                 }
                 else {
@@ -237,10 +220,9 @@ public class Section implements Serializable {
                     continue;
                 }
             }
-            catch (Exception e) {
+            catch (InputMismatchException e) {
                 System.out.println("Необходимо выбрать: 1,2 или 0 для выхода в меню\n");
-                int userInt = scanner.nextInt();
-                //todo исправить эту фигнистику
+                scanner.nextLine();
             }
         }
     }
@@ -256,7 +238,7 @@ public class Section implements Serializable {
     private static Section receiveNextSection(Section current, HashMap<String, Section> sections, int wayNumber) {
         return sections.entrySet()
                 .stream()
-                .filter(s -> s.getKey() == modifyWay(current.ways.get(wayNumber), true))
+                .filter(s -> s.getKey().equals(modifyWay(current.ways.get(wayNumber), true)))
                 .map(e ->  e.getValue())
                 .findFirst()
                 .orElse(current);
@@ -266,7 +248,7 @@ public class Section implements Serializable {
         return createSections()
                 .entrySet()
                 .stream()
-                .filter(s -> s.getKey() == key)
+                .filter(s -> s.getKey().equals(key))
                 .map(e -> e.getValue())
                 .findFirst()
                 .orElse(createStart());

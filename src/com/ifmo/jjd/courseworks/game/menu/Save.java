@@ -5,10 +5,7 @@ import java.io.*;
 public class Save implements Command{
     @Override
     public void execute() {
-
-        // todo почему не получается сохранить файл в ресурсах???
-        //String fileName = Menu.class.getClassLoader().getResource("Section.bin").getPath();
-        String fileName = "Section.bin";
+        String fileName = "resources/Section.bin";
         try (FileOutputStream output = new FileOutputStream(fileName)) {
             byte[] byteSection = Menu.getInstance().getSectionKey().getBytes("UTF-8");
             output.write(byteSection);

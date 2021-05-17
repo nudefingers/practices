@@ -3,6 +3,7 @@ package com.ifmo.jjd.courseworks.game.menu;
 import com.ifmo.jjd.courseworks.game.Section;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -59,15 +60,22 @@ public class Menu {
             System.out.println("Выберите пункт меню:");
             System.out.println(textMenu);
 
-            int userInt = scanner.nextInt();
-            if (userInt <= itemCount && userInt > 0) {
-                itemSave = true;
-                return userInt;
+            try {
+                int userInt = scanner.nextInt();
+                if (userInt <= itemCount && userInt > 0) {
+                    itemSave = true;
+                    return userInt;
+                }
+                else {
+                    System.out.println("Неверный пунк меню\n");
+                    continue;
+                }
             }
-            else {
+            catch (InputMismatchException e) {
                 System.out.println("Неверный пунк меню\n");
-                continue;
+                scanner.nextLine();
             }
+
         }
     }
 
