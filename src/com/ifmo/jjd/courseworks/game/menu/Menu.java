@@ -67,12 +67,12 @@ public class Menu {
                     return userInt;
                 }
                 else {
-                    System.out.println("Неверный пунк меню\n");
+                    System.out.println("Неверный пункт меню\n");
                     continue;
                 }
             }
             catch (InputMismatchException e) {
-                System.out.println("Неверный пунк меню\n");
+                System.out.println("Неверный пункт меню\n");
                 scanner.nextLine();
             }
 
