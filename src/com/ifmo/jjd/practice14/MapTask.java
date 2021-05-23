@@ -151,8 +151,7 @@ public class MapTask {
 
     // 3.
     public static String mostCommonWords (String text) {
-        String[] words = text.split(" ");
-        ArrayList<String> wordsList = new ArrayList<>(Arrays.asList(words));
+        ArrayList<String> wordsList = new ArrayList<>(Arrays.asList(text.split(" ")));
 
         HashMap<String, Integer> sameWords = sameWords(wordsList);
 
